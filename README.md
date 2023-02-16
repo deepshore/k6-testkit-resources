@@ -13,7 +13,7 @@ A condensed demo setup of everything you need to get k6 running seriously on k8s
 
 # prepare environment
 
-- install elasticsearch via 
+- install elasticsearch crds and operator via 
   - `kubectl create -f https://download.elastic.co/downloads/eck/2.6.1/crds.yaml` and
   - `kubectl apply -f https://download.elastic.co/downloads/eck/2.6.1/operator.yaml` 
 - create a namespace `kubectl create ns k6demo`
@@ -29,8 +29,8 @@ kubectl create secret docker-registry github-registry \
 --docker-email=support@nextevolution.de \
 -n k6demo
 ```
-- `kubectl apply -f resources/k6_elasticsearch.yaml`
-- `kubectl apply -f resources/k6_kibana.yaml`
+- setup an elastic node `kubectl apply -f resources/k6_elasticsearch.yaml`
+- setup a kibana node `kubectl apply -f resources/k6_kibana.yaml`
 - check with `watch kubectl get k6 k6-test-by-deepshore` for completion
 - port forward `kubectl port-forward service/metrics-ui-kb-http 5601`
 - open [kibana in browser](https://localhost:5601) and login with `elastic` and the password you obtain with this command `kubectl get secret metrics-db-es-elastic-user -o=jsonpath='{.data.elastic}' | base64 --decode; echo`
