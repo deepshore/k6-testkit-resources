@@ -1,0 +1,14 @@
+---
+apiVersion: k6.io/v1alpha1
+kind: K6
+metadata:
+  name: k6-test-by-deepshore
+spec:
+  parallelism: 4
+  script: k6-test
+  arguments: --out output-elasticsearch
+  runner:
+    image: ghcr.io/deepshore/xk6-output-elasticsearch:latest
+    env:
+      - name: "K6_ELASTICSEARCH_URL"
+        value: "http://elasticsearch:9200"
