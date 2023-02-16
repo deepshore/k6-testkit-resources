@@ -11,7 +11,7 @@ A condensed demo setup of everything you need to get k6 running seriously on k8s
 - minimal javascript knowledge
 - minimal knowledge about handling dashboard and visualizations in kibana
 
-# get started
+# prepare environment
 
 - install elasticsearch via 
   - `kubectl create -f https://download.elastic.co/downloads/eck/2.6.1/crds.yaml` and
@@ -29,12 +29,22 @@ kubectl create secret docker-registry github-registry \
 --docker-email=support@nextevolution.de \
 -n k6demo
 ```
-- `kubectl apply -f resources/`
+- `kubectl apply -f resources/k6_elasticsearch.yaml`
+- `kubectl apply -f resources/k6_kibana.yaml`
 - check with `watch kubectl get k6 k6-test-by-deepshore` for completion
-- check the K6 Loadtest by Deepshore Dashboard in kibana.
-- get password `kubectl get secret metrics-db-es-elastic-user -o=jsonpath='{.data.elastic}' | base64 --decode; echo`
 - port forward `kubectl port-forward service/metrics-ui-kb-http 5601`
-- open [kibana in browser](https://localhost:5601)
+- open [kibana in browser](https://localhost:5601) and login with `elastic` and the password you obtain with this command `kubectl get secret metrics-db-es-elastic-user -o=jsonpath='{.data.elastic}' | base64 --decode; echo`
 - import the saved objects located in [kibana folder](kibana/export.ndjson) via [Kibana Stack Management](https://localhost:5601/app/management/kibana/objects)
 - Check [Kibana Dashboards](https://localhost:5601/app/dashboards)
 - done. you have a complete k8s based k6 testing environment.
+
+# run tests
+
+- `kubectl apply -f resources`
+- `kubectl wait --for=jsonpath='{.status.stage}'=finished k6 k6-test-by-deepshore`
+- now check [that dashboard](https://localhost:5601/app/dashboards) again
+
+## preview
+
+![dashboard](kibana/dashboard.png)
+

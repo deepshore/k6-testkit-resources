@@ -14,6 +14,7 @@ spec:
     image: ghcr.io/deepshore/xk6-output-elasticsearch:latest
     imagePullSecrets:
     - name: github-registry
+    
     env:
       - name: "K6_ELASTICSEARCH_URL"
-        value: "http://metrics-db-es-default:9200"
+        value: "http://metrics-db-es-http:9200"

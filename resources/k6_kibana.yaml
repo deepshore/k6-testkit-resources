@@ -5,5 +5,14 @@ metadata:
 spec:
   version: 8.6.2
   count: 1
+  config:
+    xpack.security.authc.providers:
+      basic.basic1:
+        order: 0
+      anonymous.anonymous1:
+        order: 1
+        credentials:
+          username: "anonymous_user"
+          password: ""
   elasticsearchRef:
     name: metrics-db
