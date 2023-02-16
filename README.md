@@ -30,8 +30,9 @@ kubectl create secret docker-registry github-registry \
 -n k6demo
 ```
 - setup an elastic node `kubectl apply -f resources/k6_elasticsearch.yaml`
+- check elasticsearch with `kubectl wait --for=jsonpath='{.status.phase}'=Ready elasticsearch metrics-db`
 - setup a kibana node `kubectl apply -f resources/k6_kibana.yaml`
-- check with `watch kubectl get k6 k6-test-by-deepshore` for completion
+- check kibana with `kubectl wait --for=jsonpath='{.status.health}'=green kibana metrics-ui`
 - port forward `kubectl port-forward service/metrics-ui-kb-http 5601`
 - open [kibana in browser](https://localhost:5601) and login with `elastic` and the password you obtain with this command `kubectl get secret metrics-db-es-elastic-user -o=jsonpath='{.data.elastic}' | base64 --decode; echo`
 - import the saved objects located in [kibana folder](kibana/export.ndjson) via [Kibana Stack Management](https://localhost:5601/app/management/kibana/objects)
