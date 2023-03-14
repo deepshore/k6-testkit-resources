@@ -13,6 +13,7 @@ A condensed demo setup of everything you need to get k6 running seriously on k8s
 
 # prepare environment
 
+- clone this repo and open a terminal with prerequisites installed.
 - install elasticsearch crds and operator via 
   - `kubectl create -f https://download.elastic.co/downloads/eck/2.6.1/crds.yaml` and
   - `kubectl apply -f https://download.elastic.co/downloads/eck/2.6.1/operator.yaml` 
