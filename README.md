@@ -17,6 +17,8 @@ A condensed demo setup of everything you need to get k6 running seriously on k8s
 - install elasticsearch crds and operator via 
   - `kubectl create -f https://download.elastic.co/downloads/eck/2.6.1/crds.yaml` and
   - `kubectl apply -f https://download.elastic.co/downloads/eck/2.6.1/operator.yaml` 
+- install grafana operator via
+  - `kubectl create -k grafana-operator/overlays/cluster_scoped`
 - create a namespace `kubectl create ns k6demo`
 - switch context `kubectl config set-context --current --namespace k6demo`
 - issue a [token with scope repo:read] (https://github.com/settings/tokens/new?scopes=read:packages)
@@ -40,6 +42,9 @@ kubectl create secret docker-registry github-registry \
 - Check [Kibana Dashboards](https://localhost:5601/app/dashboards)
 - done. you have a complete k8s based k6 testing environment.
 
+- alternatively you can spin up a grafana node now
+  - replace the "secret" word in [grafana/k6_grafana_datasource.yaml](grafana/k6_grafana_datasource.yaml) with the password for elastic user
+  - `kubectl apply -f grafana`
 # run tests
 
 - `kubectl apply -f resources`
