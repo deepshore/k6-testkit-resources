@@ -11,6 +11,17 @@ spec:
   nodeSets:
   - name: default
     count: 1
+    podTemplate:
+      spec:
+        containers:
+          - name: elasticsearch
+            resources:
+              requests:
+                cpu: 1
+                memory: 4G
+              limits:
+                cpu: 1
+                memory: 4G
     config:
       node.store.allow_mmap: false
       xpack.security.authc:

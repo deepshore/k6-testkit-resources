@@ -6,6 +6,9 @@ spec:
   version: 8.6.2
   count: 1
   config:
+    uiSettings:
+      overrides:
+        "theme:darkMode": true
     xpack.security.authc.providers:
       basic.basic1:
         order: 0

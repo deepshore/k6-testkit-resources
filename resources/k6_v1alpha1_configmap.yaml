@@ -14,9 +14,9 @@ data:
         checks: [{threshold: 'rate == 1.00', abortOnFail: false}],
       },
       stages: [
-        {duration: '30s', target: 200},
-        {duration: '30s', target: 500},
-        {duration: '30s', target: 200},
+        {duration: '30s', target: 50},
+        {duration: '30s', target: 125},
+        {duration: '30s', target: 50},
         {duration: '30s', target: 0},
       ],
       vus: 1

@@ -17,7 +17,7 @@ A condensed demo setup of everything you need to get k6 running seriously on k8s
 - install elasticsearch crds and operator via 
   - `kubectl create -f https://download.elastic.co/downloads/eck/2.6.1/crds.yaml` and
   - `kubectl apply -f https://download.elastic.co/downloads/eck/2.6.1/operator.yaml` 
-- install grafana operator via
+- OPTIONAL: install grafana operator via
   - `kubectl create -k grafana-operator/overlays/cluster_scoped`
 - create a namespace `kubectl create ns k6demo`
 - switch context `kubectl config set-context --current --namespace k6demo`
@@ -38,11 +38,11 @@ kubectl create secret docker-registry github-registry \
 - check kibana with `kubectl wait --for=jsonpath='{.status.health}'=green kibana metrics-ui`
 - port forward `kubectl port-forward service/metrics-ui-kb-http 5601`
 - open [kibana in browser](https://localhost:5601) and login with `elastic` and the password you obtain with this command `kubectl get secret metrics-db-es-elastic-user -o=jsonpath='{.data.elastic}' | base64 --decode; echo`
-- import the saved objects located in [kibana folder](kibana/export.ndjson) via [Kibana Stack Management](https://localhost:5601/app/management/kibana/objects)
+- import the saved objects located in [kibana folder](kibana/deepops_dashboard.ndjson) via [Kibana Stack Management](https://localhost:5601/app/management/kibana/objects)
 - Check [Kibana Dashboards](https://localhost:5601/app/dashboards)
 - done. you have a complete k8s based k6 testing environment.
 
-- alternatively you can spin up a grafana node now
+- OPTIONAL: you can additionally spin up a grafana node now
   - replace the "secret" word in [grafana/k6_grafana_datasource.yaml](grafana/k6_grafana_datasource.yaml) with the password for elastic user
   - `kubectl apply -f grafana`
 # run tests
